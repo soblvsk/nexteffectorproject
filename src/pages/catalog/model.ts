@@ -11,7 +11,7 @@ const $isPageOpened = createStore(false)
   .on(opened, () => true)
   .on(closed, () => false);
 
-debug({ about: $isPageOpened });
+debug({ catalog: $isPageOpened });
 
 export const $$catalogPage = {
   enter,

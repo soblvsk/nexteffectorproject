@@ -1,0 +1,4 @@
+{
+  "presets": ["next/babel", "patronum/babel-preset"],
+  "plugins": [["effector/babel-plugin"]]
+}

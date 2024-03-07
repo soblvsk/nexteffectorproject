@@ -8,7 +8,6 @@ import { useMemo, type ComponentType, type ReactNode } from 'react';
 
 import type { StaticPageContext } from '@/shared/lib/nextjs-effector';
 
-
 import { $$page } from '@/entities/page/model';
 
 import { BaseLayout } from '@/widgets/layouts/baseLayout/ui';
@@ -26,7 +25,7 @@ interface PageEntity {
   seo: {
     title: string;
     description?: string;
-  }
+  };
 }
 
 type PageNameFromSitemap = Exclude<PageEntity['type'], 'home'>;
@@ -84,7 +83,7 @@ export const getStaticProps = createGSP({
 });
 
 export const getStaticPaths: GetStaticPaths = () => {
-  const paths: never[] = [];
+  const paths: string[] = ['/about', '/catalog'];
 
   return {
     paths,
@@ -95,7 +94,8 @@ export const getStaticPaths: GetStaticPaths = () => {
 const AllPage = () => {
   const type = useUnit($$page.$pageType);
 
-  const PageComponent = type !== null && type in pageMap ? pageMap[type as keyof typeof pageMap] : null;
+  const PageComponent =
+    type !== null && type in pageMap ? pageMap[type as keyof typeof pageMap] : null;
 
   const router = useRouter();
 
@@ -105,15 +105,13 @@ const AllPage = () => {
   if (!PageComponent) return <div>Ничего не найдено</div>;
 
   return <PageComponent />;
-}
-
-
+};
 
 const AllPageSeo = () => {
   const pageSeo = useUnit($$page.$pageSeo);
 
-  return <NextSeo {...pageSeo}/>
-}
+  return <NextSeo {...pageSeo} />;
+};
 
 const Page = (props: any = {}) => {
   return (

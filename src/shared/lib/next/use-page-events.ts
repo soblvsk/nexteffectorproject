@@ -1,12 +1,12 @@
-import type { EventCallable } from "effector";
-import { createEvent } from "effector";
-import type { Gate } from "effector-react";
-import { useUnit } from "effector-react";
-import equal from "fast-deep-equal";
-import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
+import type { EventCallable } from 'effector';
+import { createEvent } from 'effector';
+import type { Gate } from 'effector-react';
+import { useUnit } from 'effector-react';
+import equal from 'fast-deep-equal';
+import { useRouter } from 'next/router';
+import { useEffect, useRef } from 'react';
 
-import { ContextNormalizers } from "./context-normalizers";
+import { ContextNormalizers } from './context-normalizers';
 
 const fallbackPageEvents = {
   close: createEvent<any | void>(),
@@ -56,13 +56,11 @@ export function useBasePageEvents<P>(
       open(currRef.value);
 
       return () => {
-        console.log("Page unmounted router is ready");
         close?.(currRef.value);
       };
     }
 
     return () => {
-      console.log("Page unmounted router is not ready");
       // noop
     };
   }, [open, close, router.isReady]);
@@ -79,8 +77,7 @@ export const usePageEvents = <P>(
   props?: P,
 ) => {
   const router = useRouter();
-  const context =
-    props ?? ({ url: ContextNormalizers.router(router).asPath } as P);
+  const context = props ?? ({ url: ContextNormalizers.router(router).asPath } as P);
   console.log({ contextUrl: context.url });
   return useBasePageEvents(config, context);
 };
